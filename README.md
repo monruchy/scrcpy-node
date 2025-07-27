@@ -27,7 +27,7 @@ Download from [nodejs.org](https://nodejs.org)
 ### 2. Clone This Repo
 
 ```bash
-git clone https://github.com/your-username/scrcpy-loop-node.git
+git clone https://github.com/monruchy/scrcpy-loop-node.git
 cd scrcpy-loop-node
 ```
 
