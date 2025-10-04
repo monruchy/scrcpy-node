@@ -1,4 +1,3 @@
-
 const { execSync, spawn } = require("child_process");
 const chalk = require("chalk");
 
@@ -24,7 +23,7 @@ function getDeviceIp() {
     const match = result.match(/src (\d+\.\d+\.\d+\.\d+)/);
     if (match) return match[1];
   } catch (error) {
-    log(`ไม่สามารถดึง IP ได้: ${error.message}`, "error");
+    log(`Failed to get IP: ${error.message}`, "error");
   }
   return null;
 }
@@ -34,35 +33,35 @@ function delay(ms) {
 }
 
 async function mainLoop() {
-  log("เริ่มต้นโปรแกรม scrcpy-loop", "info");
+  log("Starting scrcpy-loop", "info");
 
   while (true) {
     try {
       const ip = getDeviceIp();
       if (!ip) {
-        log("หา IP ไม่เจอ ลองเชื่อมสาย USB แล้วรันใหม่", "warn");
+        log("Could not find device IP. Please connect via USB and try again.", "warn");
         await delay(5000);
         continue;
       }
 
-      log(`เจอ IP ของมือถือ: ${ip}`, "success");
+      log(`Device IP found: ${ip}`, "success");
 
       execSync(`${ADB_PATH} connect ${ip}:5555`, { stdio: "ignore" });
 
-      log("กำลังเปิด scrcpy...", "info");
+      log("Launching scrcpy...", "info");
 
       const scrcpy = spawn(SCRCPY_PATH, ["-s", `${ip}:5555`], { stdio: "inherit" });
 
       await new Promise((resolve) => scrcpy.on("exit", resolve));
 
-      log("scrcpy ปิดลงแล้ว จะเปิดใหม่ใน 3 วินาที...", "warn");
+      log("scrcpy closed. Restarting in 3 seconds...", "warn");
       await delay(3000);
     } catch (error) {
       if (error.code === "SIGINT") {
-        log("ผู้ใช้ยกเลิกโปรแกรม", "success");
+        log("Program terminated by user", "success");
         break;
       }
-      log(`เกิดข้อผิดพลาด: ${error.message}`, "error");
+      log(`Error occurred: ${error.message}`, "error");
       await delay(5000);
     }
   }
