@@ -10,15 +10,6 @@ Perfect for developers or streamers who want their Android screen to stay mirror
 - Auto-relaunch `scrcpy` if closed
 - Cross-platform logging with timestamps and colors
 
-## 📷 Preview (Terminal Output)
-
-```
-[12:00:01] [INFO] เริ่มต้นโปรแกรม scrcpy-loop
-[12:00:03] [OK] เจอ IP ของมือถือ: 192.168.1.42
-[12:00:03] [INFO] กำลังเปิด scrcpy...
-[12:10:55] [WARN] scrcpy ปิดลงแล้ว จะเปิดใหม่ใน 3 วินาที...
-```
-
 ## 🚀 Getting Started
 
 ### 1. Install Node.js
